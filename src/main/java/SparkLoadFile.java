@@ -22,22 +22,20 @@ C:\frank\SparkLoadFile\target>java -cp "SparkLoadFile-1.0-SNAPSHOT-jar-with-depe
 Schema:
 root
  |-- id: integer (nullable = true)
- |-- parentid: integer (nullable = true)
+ |-- parent_id: integer (nullable = true)
  |-- data: string (nullable = true)
  |-- date: string (nullable = true)
  |-- url: string (nullable = true)
 [...]
 2021-12-03 16:02:49 INFO  DAGScheduler:54 - Job 2 finished: show at SparkLoadFile.java:34, took 0,991968 s
-+---+--------+--------------+----------+-------------+
-| id|parentid|          data|      date|          url|
-+---+--------+--------------+----------+-------------+
-|  1|       1|this is line 1|12/21/2021|www.line1.com|
-|  2|       1|this is line 2|12/22/2021|www.line2.com|
-|  3|       2|this is line 3|12/23/2021|www.line3.com|
-|  4|       2|this is line 4|12/24/2021|www.line4.com|
-+---+--------+--------------+----------+-------------+
-
-
++---+---------+--------------+----------+-------------+
+| id|parent_id|          data|        dt|          url|
++---+---------+--------------+----------+-------------+
+|  1|        1|this is line 1|12/21/2021|www.line1.com|
+|  2|        1|this is line 2|12/22/2021|www.line2.com|
+|  3|        2|this is line 3|12/23/2021|www.line3.com|
+|  4|        2|this is line 4|12/24/2021|www.line4.com|
++---+---------+--------------+----------+-------------+
 
 3/ H2 setup:
 
@@ -72,11 +70,6 @@ import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.StructType;
 import scala.Tuple2;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
 
 public class SparkLoadFile {
 
@@ -85,7 +78,6 @@ public class SparkLoadFile {
     public static void main(String[] args) {
         SparkLoadFile sparkLoadFile = new SparkLoadFile();
         sparkLoadFile.start();
-
     }
 
     //--------------------------------------------------------------
@@ -149,70 +141,33 @@ public class SparkLoadFile {
                     break;
             }
         }
+
+        // create encoder used for SerDe
         ExpressionEncoder<Row> encoder = RowEncoder.apply(structType);
 
         return dataset.map(
                 (MapFunction<Row, Row>) input -> RowFactory.create(input.getInt(0),
                         input.getInt(1),
-                        input.getString(2).toUpperCase(),
+                        input.getString(2).toUpperCase(),           // Do our transformation
                         input.getString(3),
                         input.getString(4)
                 ), encoder
         );
     }
+
     //--------------------------------------------------------------
 
     void load(Dataset<Row> dataset) {
 
-        String url = "jdbc:h2:tcp://localhost/~/test";
-
-        try {
-            Class.forName("org.h2.Driver");
-            Properties props = new Properties();
-            props.put("user", "sa");
-            props.put("password", "");
-            Connection conn = DriverManager.getConnection(url, props);
-
-            String SQL_INSERT = "INSERT INTO DATA (ID, PARENT_ID, DATA, DT, URL) VALUES (?,?,?,?,?)";
-
-            PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT);
-
-            List<Row> arrayList = new ArrayList<>();
-            arrayList = dataset.collectAsList();
-
-            for (int i = 0; i < arrayList.size(); i++) {
-
-                Row record = arrayList.get(i);
-                StructType schema = record.schema();
-
-                // base on record info build jdbc statement fields dynamically
-                for (int j = 0; j < schema.fields().length; j++) {
-                    String typeName = schema.fields()[j].dataType().typeName();
-                    switch (typeName) {
-                        case "integer":
-                            preparedStatement.setInt(j+1, record.getInt(j));
-                            break;
-
-                        case "string":
-                            preparedStatement.setString(j+1, record.getString(j));
-                            break;
-
-                        case "timestamp":
-                            preparedStatement.setTimestamp (j+1, record.getTimestamp(j));
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-                int row = preparedStatement.executeUpdate();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
+         dataset.write()
+                .mode("append")
+                .format("jdbc")
+                .option("driver", "org.h2.Driver")
+                .option("user", "sa")
+                .option("password", "")
+                .option("url", "jdbc:h2:tcp://localhost/~/test")
+                .option("dbtable", "data")
+                .save();
     }
 
     //--------------------------------------------------------------
