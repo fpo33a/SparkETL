@@ -24,7 +24,7 @@ root
  |-- id: integer (nullable = true)
  |-- parent_id: integer (nullable = true)
  |-- data: string (nullable = true)
- |-- date: string (nullable = true)
+ |-- dt: string (nullable = true)
  |-- url: string (nullable = true)
 [...]
 2021-12-03 16:02:49 INFO  DAGScheduler:54 - Job 2 finished: show at SparkLoadFile.java:34, took 0,991968 s
