@@ -74,7 +74,8 @@ public class SparkGroupBy {
                 .option("quote", "*")
                 .option("dateFormat", "M/d/y")
                 .option("inferSchema", true)
-                .load(filename);
+                .load(filename)
+                .repartition(4);
 
         System.out.println("Schema:");
         df.printSchema();
@@ -94,7 +95,7 @@ public class SparkGroupBy {
         }, Encoders.STRING());
 
         // show count per key
-        kvDataset.count().show();
+          kvDataset.count().show();
 
         // the result dataset will only contains key - we iterates on values to display for learning purpose
         Dataset<String> flatMapped = kvDataset.mapGroups(
@@ -113,7 +114,6 @@ public class SparkGroupBy {
 
         return flatMapped;
     }
-
 
     //--------------------------------------------------------------
 
