@@ -22,8 +22,10 @@ C:\frank\SparkLoadFile\target>java -cp "SparkLoadFile-1.0-SNAPSHOT-jar-with-depe
 import org.apache.spark.api.java.function.FlatMapGroupsFunction;
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.api.java.function.MapGroupsFunction;
+import org.apache.spark.api.java.function.ReduceFunction;
 import org.apache.spark.sql.*;
 import org.apache.spark.sql.SparkSession;
+import scala.Tuple2;
 
 import static org.apache.spark.sql.functions.col;
 
@@ -37,6 +39,16 @@ public class SparkGroupBy {
         sparkGroupBy.start();
     }
 
+    //--------------------------------------------------------------
+
+    private void wait (int sec) {
+        try {
+            Thread.sleep(1000*sec);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     //--------------------------------------------------------------
 
     void start() {
@@ -53,6 +65,12 @@ public class SparkGroupBy {
         System.out.println("----------------------------------------------------------");
         System.out.println("groupByKeyData ");
         System.out.println("----------------------------------------------------------");
+        this.groupByKeyAndReduceData(extractedData);
+
+
+        System.out.println("----------------------------------------------------------");
+        System.out.println("groupByKeyData ");
+        System.out.println("----------------------------------------------------------");
         Dataset<String> byKey = this.groupByKeyData(extractedData);
         byKey.show();
 
@@ -61,6 +79,9 @@ public class SparkGroupBy {
         System.out.println("----------------------------------------------------------");
         Dataset<Row> res = this.groupByData(extractedData);
         res.show();
+
+        wait(300);
+
     }
 
     //--------------------------------------------------------------
@@ -114,6 +135,27 @@ public class SparkGroupBy {
 
         return flatMapped;
     }
+
+    //--------------------------------------------------------------
+
+    Dataset<String> groupByKeyAndReduceData(Dataset<Row> dataset) {
+
+        // the KeyValueGroupedDataset will contain a key ( third column of dataset ) + list of all rows for that key
+        KeyValueGroupedDataset<String, Row> kvDataset = dataset.groupByKey((MapFunction<Row, String>) (row) -> {
+            return row.getString(3);        // colum 3 = date ( group by date )
+        }, Encoders.STRING());
+
+        // show record with max id per date
+        Dataset<Tuple2<String, Row>> x = kvDataset.reduceGroups((ReduceFunction<Row>) (v1, v2) -> {
+            System.out.println("v1 =  " + v1.toString() + ", v2 = " + v2.toString());
+            if (v1.getInt(0) > v2.getInt(0)) return v1;
+            return v2;
+        });
+        x.show(30,false);
+
+        return null;
+    }
+
 
     //--------------------------------------------------------------
 
