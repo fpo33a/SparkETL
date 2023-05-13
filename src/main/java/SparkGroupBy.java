@@ -61,7 +61,7 @@ public class SparkGroupBy {
         System.out.println("load data file ");
         System.out.println("----------------------------------------------------------");
         Dataset<Row> extractedData = this.extract(spark, "C:\\temp\\data.csv");
-/*
+
         System.out.println("----------------------------------------------------------");
         System.out.println("groupByKeyData ");
         System.out.println("----------------------------------------------------------");
@@ -79,7 +79,7 @@ public class SparkGroupBy {
         System.out.println("----------------------------------------------------------");
         Dataset<Row> res2 = this.groupByData(extractedData);
         res2.show(30, false);
-*/
+
         System.out.println("----------------------------------------------------------");
         System.out.println("groupBySqlData ");
         System.out.println("----------------------------------------------------------");
@@ -175,6 +175,7 @@ public class SparkGroupBy {
             return RowFactory.create(row.getString(3), row.getInt(1));
         }, encoder);
 
+        result.explain(true);
         return result;
     }
 
@@ -182,8 +183,9 @@ public class SparkGroupBy {
 
     Dataset<Row> groupByData(Dataset<Row> dataset) {
 
-        RelationalGroupedDataset res = dataset.groupBy(col("date"));
-        return res.max("parentid"); // count();
+        RelationalGroupedDataset result = dataset.groupBy(col("date"));
+        result.max("parentid").explain(true);
+        return result.max("parentid"); // count();
     }
 
     //--------------------------------------------------------------
@@ -192,6 +194,7 @@ public class SparkGroupBy {
 
         dataset.createOrReplaceTempView("data");
         Dataset<Row> result = spark.sql("SELECT date, max(parentid) FROM data group by date");
+        result.explain(true);
         return result;
     }
     //--------------------------------------------------------------
