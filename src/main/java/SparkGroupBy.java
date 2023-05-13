@@ -42,11 +42,10 @@ public class SparkGroupBy {
 
     //--------------------------------------------------------------
 
-    private void wait (int sec) {
+    private void wait(int sec) {
         try {
-            Thread.sleep(1000*sec);
-        }
-        catch (Exception e) {
+            Thread.sleep(1000 * sec);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -75,13 +74,17 @@ public class SparkGroupBy {
         Dataset<Row> res1 = this.groupByKeyAndReduceData(extractedData);
         res1.show(30,false);
 
-*/
-
         System.out.println("----------------------------------------------------------");
         System.out.println("groupByData ");
         System.out.println("----------------------------------------------------------");
         Dataset<Row> res2 = this.groupByData(extractedData);
-        res2.show(30,false);
+        res2.show(30, false);
+*/
+        System.out.println("----------------------------------------------------------");
+        System.out.println("groupBySqlData ");
+        System.out.println("----------------------------------------------------------");
+        Dataset<Row> res3 = this.groupBySqlData(spark,extractedData);
+        res3.show(30, false);
 
         wait(600);
 
@@ -119,7 +122,7 @@ public class SparkGroupBy {
         }, Encoders.STRING());
 
         // show count per key
-          kvDataset.count().show();
+        kvDataset.count().show();
 
         // the result dataset will only contains key - we iterates on values to display for learning purpose
         Dataset<String> flatMapped = kvDataset.mapGroups(
@@ -148,6 +151,10 @@ public class SparkGroupBy {
             return row.getString(3);        // colum 3 = date ( group by date )
         }, Encoders.STRING());
 
+        // Note: for learning purpose we do two different dataset ( resultGroups & result ). Both operations could have been combined
+        //       but for learning ( using debugger ) we split ( to see intermediate structure )
+        //       The fact it is split doesn't change anything to plan nor perfs ( tested & compared )
+
         // create dataset of  <date, row of max parentid ROW per date>
         Dataset<Tuple2<String, Row>> reduceGroups = kvDataset.reduceGroups((ReduceFunction<Row>) (v1, v2) -> {
             // System.out.println("v1 =  " + v1.toString() + ", v2 = " + v2.toString());
@@ -171,7 +178,6 @@ public class SparkGroupBy {
         return result;
     }
 
-
     //--------------------------------------------------------------
 
     Dataset<Row> groupByData(Dataset<Row> dataset) {
@@ -180,6 +186,14 @@ public class SparkGroupBy {
         return res.max("parentid"); // count();
     }
 
+    //--------------------------------------------------------------
+
+    Dataset<Row> groupBySqlData(SparkSession spark, Dataset<Row> dataset) {
+
+        dataset.createOrReplaceTempView("data");
+        Dataset<Row> result = spark.sql("SELECT date, max(parentid) FROM data group by date");
+        return result;
+    }
     //--------------------------------------------------------------
 
 }
