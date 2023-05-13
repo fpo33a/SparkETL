@@ -19,12 +19,13 @@ C:\frank\SparkLoadFile\target>java -cp "SparkLoadFile-1.0-SNAPSHOT-jar-with-depe
 [...]
 */
 
-import org.apache.spark.api.java.function.FlatMapGroupsFunction;
-import org.apache.spark.api.java.function.MapFunction;
-import org.apache.spark.api.java.function.MapGroupsFunction;
-import org.apache.spark.api.java.function.ReduceFunction;
+import org.apache.spark.api.java.function.*;
 import org.apache.spark.sql.*;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder;
+import org.apache.spark.sql.catalyst.encoders.RowEncoder;
+import org.apache.spark.sql.types.DataTypes;
+import org.apache.spark.sql.types.StructType;
 import scala.Tuple2;
 
 import static org.apache.spark.sql.functions.col;
@@ -61,13 +62,7 @@ public class SparkGroupBy {
         System.out.println("load data file ");
         System.out.println("----------------------------------------------------------");
         Dataset<Row> extractedData = this.extract(spark, "C:\\temp\\data.csv");
-
-        System.out.println("----------------------------------------------------------");
-        System.out.println("groupByKeyData ");
-        System.out.println("----------------------------------------------------------");
-        this.groupByKeyAndReduceData(extractedData);
-
-
+/*
         System.out.println("----------------------------------------------------------");
         System.out.println("groupByKeyData ");
         System.out.println("----------------------------------------------------------");
@@ -75,12 +70,20 @@ public class SparkGroupBy {
         byKey.show();
 
         System.out.println("----------------------------------------------------------");
+        System.out.println("groupByKeyAndReduceData ");
+        System.out.println("----------------------------------------------------------");
+        Dataset<Row> res1 = this.groupByKeyAndReduceData(extractedData);
+        res1.show(30,false);
+
+*/
+
+        System.out.println("----------------------------------------------------------");
         System.out.println("groupByData ");
         System.out.println("----------------------------------------------------------");
-        Dataset<Row> res = this.groupByData(extractedData);
-        res.show();
+        Dataset<Row> res2 = this.groupByData(extractedData);
+        res2.show(30,false);
 
-        wait(300);
+        wait(600);
 
     }
 
@@ -96,7 +99,7 @@ public class SparkGroupBy {
                 .option("dateFormat", "M/d/y")
                 .option("inferSchema", true)
                 .load(filename)
-                .repartition(4);
+                .repartition(10);
 
         System.out.println("Schema:");
         df.printSchema();
@@ -138,22 +141,34 @@ public class SparkGroupBy {
 
     //--------------------------------------------------------------
 
-    Dataset<String> groupByKeyAndReduceData(Dataset<Row> dataset) {
+    Dataset<Row> groupByKeyAndReduceData(Dataset<Row> dataset) {
 
         // the KeyValueGroupedDataset will contain a key ( third column of dataset ) + list of all rows for that key
         KeyValueGroupedDataset<String, Row> kvDataset = dataset.groupByKey((MapFunction<Row, String>) (row) -> {
             return row.getString(3);        // colum 3 = date ( group by date )
         }, Encoders.STRING());
 
-        // show record with max id per date
-        Dataset<Tuple2<String, Row>> x = kvDataset.reduceGroups((ReduceFunction<Row>) (v1, v2) -> {
-            System.out.println("v1 =  " + v1.toString() + ", v2 = " + v2.toString());
-            if (v1.getInt(0) > v2.getInt(0)) return v1;
+        // create dataset of  <date, row of max parentid ROW per date>
+        Dataset<Tuple2<String, Row>> reduceGroups = kvDataset.reduceGroups((ReduceFunction<Row>) (v1, v2) -> {
+            // System.out.println("v1 =  " + v1.toString() + ", v2 = " + v2.toString());
+            if (v1.getInt(1) > v2.getInt(1)) return v1;
             return v2;
         });
-        x.show(30,false);
+        //reduceGroups.show(30,false);
 
-        return null;
+        // build a dataset<Row> with date & max parentid from previous ds
+        StructType structType = new StructType();
+        structType = structType.add("date", DataTypes.StringType, false);
+        structType = structType.add("parentid", DataTypes.IntegerType, false);
+
+        ExpressionEncoder<Row> encoder = RowEncoder.apply(structType);
+
+        Dataset<Row> result = reduceGroups.map((MapFunction<Tuple2<String, Row>, Row>) (tuple) -> {
+            Row row = tuple._2();
+            return RowFactory.create(row.getString(3), row.getInt(1));
+        }, encoder);
+
+        return result;
     }
 
 
@@ -161,8 +176,8 @@ public class SparkGroupBy {
 
     Dataset<Row> groupByData(Dataset<Row> dataset) {
 
-        RelationalGroupedDataset res = dataset.groupBy(col("parentid"));
-        return res.count();
+        RelationalGroupedDataset res = dataset.groupBy(col("date"));
+        return res.max("parentid"); // count();
     }
 
     //--------------------------------------------------------------

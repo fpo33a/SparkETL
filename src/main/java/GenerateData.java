@@ -8,7 +8,7 @@ public class GenerateData {
             FileWriter fileWriter = new FileWriter("c:/temp/data.csv");
             String line = "";
             fileWriter.write("id;parentid;data;date;url\n");
-            for (int i = 0; i < 10000; i++) {
+            for (int i = 0; i < 100000; i++) {
                 line = i+";"+(i%100)+";this is line "+i+";12/"+(i%30)+"/2021;www.line"+i+".com\n";
                 fileWriter.write(line);
             }
