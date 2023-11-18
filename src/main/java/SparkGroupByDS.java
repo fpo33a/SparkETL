@@ -73,6 +73,7 @@ public class SparkGroupByDS {
         System.out.println("----------------------------------------------------------");
         Dataset<Row> res2 = this.groupByData(extractedData);
         res2.show(30, false);
+        System.out.println("nb part = "+res2.rdd().getNumPartitions());
 
         System.out.println("----------------------------------------------------------");
         System.out.println("groupBySqlData ");
@@ -128,6 +129,7 @@ public class SparkGroupByDS {
             return v2;
         });
         //reduceGroups.show(30,false);
+        //return null;
 
         // build a dataset<Row> with date & max parentid from previous ds
         StructType structType = new StructType();
@@ -143,6 +145,7 @@ public class SparkGroupByDS {
 
         result.explain(true);
         return result;
+
     }
 
     //--------------------------------------------------------------
