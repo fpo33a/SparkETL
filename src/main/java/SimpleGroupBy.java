@@ -1,6 +1,6 @@
 // compare groupby aggregate & window functions
 
-/* executions time on home laptop
+/* executions time on home laptop with spark 2.3.0
 
 1/ with simple repartition (10) ( no column )
 - groupby : 51 sec
@@ -93,7 +93,8 @@ public class SimpleGroupBy {
                 .option("dateFormat", "M/d/y")
                 .option("inferSchema", true)
                 .load(filename)
-                .repartition(10, col("parentid"));
+                .repartition(10, col("parentid"))
+                .cache();
 
         System.out.println("Schema:");
         df.printSchema();
