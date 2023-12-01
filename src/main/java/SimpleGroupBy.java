@@ -93,6 +93,7 @@ public class SimpleGroupBy {
                 .option("dateFormat", "M/d/y")
                 .option("inferSchema", true)
                 .load(filename)
+                //.repartition(10)
                 .repartition(10, col("parentid"))
                 .cache();
 
@@ -100,7 +101,9 @@ public class SimpleGroupBy {
         df.printSchema();
 
         System.out.println("Data:");
+        //this.wait(60);
         df.show();
+        //this.wait(60);
         return df;
     }
 
