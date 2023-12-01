@@ -46,7 +46,7 @@ public class AccountGroupBy {
     void start() {
         SparkSession spark = SparkSession.builder()
                 .appName("accountGroupBy")
-                .master("local")
+                .master("local[4]")
                 .getOrCreate();
 
         System.out.println("----------------------------------------------------------");
@@ -60,11 +60,12 @@ public class AccountGroupBy {
         d0 = new Date();
         Dataset<Row> result = this.accountGroupBy(extractedData);
         d1 = new Date();
-        result.show(20, false);
+        result.show(100, false);
+
 
         System.out.println("----------------------------------------------------------");
         long t1 = d1.getTime() - d0.getTime();
-        System.out.println("accountGroupBy = " + t1);
+        System.out.println("accountGroupBy = " + t1+ ", generated records"+result.count());
         System.out.println("----------------------------------------------------------");
 
         wait(600);
@@ -84,7 +85,7 @@ public class AccountGroupBy {
                 .option("inferSchema", true)
                 .load(filename)
                 //.repartition(10)
-                //.repartition(10, col("fromAcc"))
+                .repartition(16, col("fromAcc"))
                 .cache();
 
         System.out.println("Schema:");
@@ -110,10 +111,10 @@ public class AccountGroupBy {
         Dataset<Row> result = dataset
                 .rollup(col("fromAcc"), col("year"), col("month"), col("day"), col("hour"))
                 .sum("amount")
-                .select("fromAcc", "year", "month", "day", "hour", "sum(amount)")
+                .withColumnRenamed("sum(amount)","total")
                 //.where(col("hour").isNotNull())
-                .sort("year", "month", "day", "hour", "fromAcc");
-        result.write().option("header", true).mode("overwrite").csv("c:/temp/accresult.csv");
+                .sort("fromAcc", "hour", "year", "month", "day");
+        result.write().option("header", true).mode("overwrite").format("parquet").save("c:/temp/accresult");
 
 
         System.out.println("----------------------------------------------------------");
