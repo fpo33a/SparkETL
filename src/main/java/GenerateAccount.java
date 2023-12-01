@@ -6,18 +6,18 @@ public class GenerateAccount {
 
     public static void main (String args []) {
         try {
-            FileWriter fileWriter = new FileWriter("c:/temp/accounts.csv");
+            FileWriter fileWriter = new FileWriter("c:/temp/billion-accounts.csv");
             String line = "";
             int totalHour = 0;
             StringBuilder sb = new StringBuilder();
             Random randomNum = new Random();
             fileWriter.write("fromAcc,toAcc,Amount,year,month,day,hour,min,communication\n");
-            for (int i = 0; i < 100000000; i++) {
+            for (int i = 0; i < 1000000000; i++) {
                 if (i % 1000000 == 0) System.out.println(i);
-                String fromAcc = String.format("\"%09d\"", randomNum. nextInt(100000));
+                String fromAcc = String.format("\"%09d\"", randomNum. nextInt(10000000));
                 sb.append(fromAcc);
                 sb.append(',');
-                sb.append(String.format("\"%09d\"", randomNum. nextInt(100000)));
+                sb.append(String.format("\"%09d\"", randomNum. nextInt(10000000)));
                 sb.append(',');
                 int amount = randomNum. nextInt(1000);
                 sb.append(String.format("%04d", amount));

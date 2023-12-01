@@ -17,6 +17,7 @@ acc000002,acc000001,210,2023,01,01,13,00,test 2-1
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.SparkConf;
 import java.util.Date;
 import static org.apache.spark.sql.functions.col;
 
@@ -44,15 +45,23 @@ public class AccountGroupBy {
     //--------------------------------------------------------------
 
     void start() {
-        SparkSession spark = SparkSession.builder()
-                .appName("accountGroupBy")
-                .master("local[4]")
+        SparkConf conf = new SparkConf()
+                .setAppName("accountGroupBy")
+                .setMaster("local[4]")
+                .set("spark.executor.memory", "8g")
+                .set("spark.driver.memory", "4g");
+
+        SparkSession spark = SparkSession.builder().config(conf)
                 .getOrCreate();
 
         System.out.println("----------------------------------------------------------");
         System.out.println("load data file ");
         System.out.println("----------------------------------------------------------");
-        Dataset<Row> extractedData = this.extract(spark, "C:\\temp\\accounts.csv");
+        // to read from csv & generate parquet version uncomment next line
+        //Dataset<Row> extractedData = this.extract(spark, "C:\\temp\\billion-accounts.csv");
+
+        // read from parquet
+        Dataset<Row> extractedData = this.loadParquet(spark, "c:/temp/billion-parquet");
 
         System.out.println("----------------------------------------------------------");
         System.out.println("accountGroupBy ");
@@ -65,11 +74,13 @@ public class AccountGroupBy {
 
         System.out.println("----------------------------------------------------------");
         long t1 = d1.getTime() - d0.getTime();
-        System.out.println("accountGroupBy = " + t1+ ", generated records"+result.count());
+        System.out.println("accountGroupBy = " + t1+ ", generated records "+ result.count());
         System.out.println("----------------------------------------------------------");
 
-        wait(600);
+        this.countResult(spark,"c:/temp/accresult");
 
+        wait(600);
+        */
     }
 
     //--------------------------------------------------------------
@@ -93,8 +104,29 @@ public class AccountGroupBy {
 
         System.out.println("Data:");
         //this.wait(60);
-        df.show();
+        //df.show();
         //this.wait(60);
+        df.write().mode("overwrite").format("parquet").save("c:/temp/billion-parquet");
+        return df;
+    }
+
+    //--------------------------------------------------------------
+
+    Dataset<Row> loadParquet(SparkSession spark, String filename) {
+
+        Dataset<Row> df = spark.read().format("parquet").load("c:/temp/billion-parquet");
+        System.out.println("Schema:");
+        df.printSchema();
+        return df;
+    }
+
+    //--------------------------------------------------------------
+
+    Dataset<Row> countResult(SparkSession spark, String filename) {
+
+        Dataset<Row> df = spark.read().format("parquet").load(filename);
+        long count = df.count();
+        System.out.println("count :"+count);
         return df;
     }
 

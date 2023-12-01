@@ -1,0 +1,280 @@
+-----------------------------------------------------------------
+-- source data 1.000.000.000 records in csv
+-----------------------------------------------------------------
+
+C:\temp>dir billion-accounts.csv
+ Volume in drive C is Windows-SSD
+ Volume Serial Number is 6E96-F985
+
+ Directory of C:\temp
+
+01/12/2023  16:14    79.284.611.914 billion-accounts.csv
+               1 File(s) 79.284.611.914 bytes
+               0 Dir(s)  732.945.920.000 bytes free
+
+C:\temp>
+
+-----------------------------------------------------------------
+-- source data 1.000.000.000 records in parquet
+-----------------------------------------------------------------
+
+
+ Directory of C:\temp\billion-parquet
+
+01/12/2023  17:38    <DIR>          .
+01/12/2023  18:28    <DIR>          ..
+01/12/2023  17:19        11.061.972 .part-00000-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet.crc
+01/12/2023  17:19        11.080.940 .part-00001-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet.crc
+01/12/2023  17:19        11.077.552 .part-00002-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet.crc
+01/12/2023  17:19        11.052.088 .part-00003-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet.crc
+01/12/2023  17:24        11.046.540 .part-00004-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet.crc
+01/12/2023  17:24        11.077.036 .part-00005-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet.crc
+01/12/2023  17:24        11.087.952 .part-00006-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet.crc
+01/12/2023  17:24        11.060.404 .part-00007-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet.crc
+01/12/2023  17:31        11.026.092 .part-00008-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet.crc
+01/12/2023  17:31        11.072.584 .part-00009-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet.crc
+01/12/2023  17:31        11.053.284 .part-00010-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet.crc
+01/12/2023  17:31        11.068.148 .part-00011-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet.crc
+01/12/2023  17:38        11.064.316 .part-00012-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet.crc
+01/12/2023  17:38        11.033.788 .part-00013-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet.crc
+01/12/2023  17:38        11.057.012 .part-00014-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet.crc
+01/12/2023  17:38        11.066.004 .part-00015-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet.crc
+01/12/2023  17:38                 8 ._SUCCESS.crc
+01/12/2023  17:19     1.415.931.390 part-00000-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+01/12/2023  17:19     1.418.358.818 part-00001-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+01/12/2023  17:19     1.417.925.628 part-00002-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+01/12/2023  17:19     1.414.666.037 part-00003-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+01/12/2023  17:24     1.413.955.754 part-00004-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+01/12/2023  17:24     1.417.859.231 part-00005-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+01/12/2023  17:24     1.419.256.770 part-00006-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+01/12/2023  17:24     1.415.730.445 part-00007-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+01/12/2023  17:31     1.411.338.623 part-00008-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+01/12/2023  17:31     1.417.289.559 part-00009-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+01/12/2023  17:31     1.414.818.958 part-00010-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+01/12/2023  17:31     1.416.721.915 part-00011-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+01/12/2023  17:38     1.416.231.247 part-00012-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+01/12/2023  17:38     1.412.323.611 part-00013-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+01/12/2023  17:38     1.415.296.238 part-00014-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+01/12/2023  17:38     1.416.447.421 part-00015-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+01/12/2023  17:38                 0 _SUCCESS
+              34 File(s) 22.831.137.365 bytes
+               2 Dir(s)  733.183.348.736 bytes free
+
+C:\temp\billion-parquet>
+
+-----------------------------------------------------------------
+-- rollup result data  in parquet
+-----------------------------------------------------------------
+
+C:\temp>dir accresult
+ Volume in drive C is Windows-SSD
+ Volume Serial Number is 6E96-F985
+
+ Directory of C:\temp\accresult
+
+01/12/2023  18:07    <DIR>          .
+01/12/2023  18:28    <DIR>          ..
+01/12/2023  18:04            52.828 .part-00000-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:04            53.868 .part-00001-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:04            58.676 .part-00002-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:04            57.164 .part-00003-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            54.440 .part-00004-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            55.548 .part-00005-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            54.844 .part-00006-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            55.468 .part-00007-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            56.808 .part-00008-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            51.228 .part-00009-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            54.700 .part-00010-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            57.524 .part-00011-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            56.716 .part-00012-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            58.760 .part-00013-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            82.912 .part-00014-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            55.744 .part-00015-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            53.840 .part-00016-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            56.808 .part-00017-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            50.864 .part-00018-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            58.084 .part-00019-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            51.124 .part-00020-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            53.676 .part-00021-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            51.912 .part-00022-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            55.368 .part-00023-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            55.028 .part-00024-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            53.976 .part-00025-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            53.276 .part-00026-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            57.672 .part-00027-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            57.816 .part-00028-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            56.404 .part-00029-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            54.452 .part-00030-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            57.500 .part-00031-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            56.344 .part-00032-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            54.512 .part-00033-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            55.944 .part-00034-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            58.180 .part-00035-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:05            53.712 .part-00036-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            55.624 .part-00037-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            54.276 .part-00038-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            53.924 .part-00039-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            54.416 .part-00040-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            56.176 .part-00041-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            55.556 .part-00042-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            52.892 .part-00043-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            53.064 .part-00044-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            57.620 .part-00045-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            62.104 .part-00046-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            59.532 .part-00047-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            56.664 .part-00048-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            54.968 .part-00049-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            55.224 .part-00050-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            56.904 .part-00051-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            55.808 .part-00052-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            52.880 .part-00053-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            79.284 .part-00054-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            83.080 .part-00055-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            50.888 .part-00056-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            53.648 .part-00057-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            54.956 .part-00058-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            59.536 .part-00059-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            53.576 .part-00060-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            54.460 .part-00061-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            53.960 .part-00062-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            57.076 .part-00063-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            78.720 .part-00064-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            56.140 .part-00065-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            54.540 .part-00066-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            52.792 .part-00067-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:06            52.408 .part-00068-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            80.908 .part-00069-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            53.372 .part-00070-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            58.740 .part-00071-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            56.540 .part-00072-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            50.996 .part-00073-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            55.916 .part-00074-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            79.496 .part-00075-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            52.904 .part-00076-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            80.136 .part-00077-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            54.000 .part-00078-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            57.168 .part-00079-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            53.872 .part-00080-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            56.552 .part-00081-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            55.412 .part-00082-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            57.124 .part-00083-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            53.588 .part-00084-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            55.372 .part-00085-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            52.488 .part-00086-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            50.188 .part-00087-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            55.968 .part-00088-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            57.488 .part-00089-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            55.488 .part-00090-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            58.580 .part-00091-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            54.344 .part-00092-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            54.232 .part-00093-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            57.580 .part-00094-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            59.688 .part-00095-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07            26.064 .part-00096-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet.crc
+01/12/2023  18:07                 8 ._SUCCESS.crc
+01/12/2023  18:04         6.760.946 part-00000-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:04         6.893.942 part-00001-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:04         7.509.352 part-00002-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:04         7.315.514 part-00003-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         6.967.290 part-00004-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.108.774 part-00005-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.018.830 part-00006-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.098.725 part-00007-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.270.370 part-00008-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         6.556.081 part-00009-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.000.495 part-00010-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.361.957 part-00011-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.258.328 part-00012-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.519.914 part-00013-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05        10.611.213 part-00014-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.133.775 part-00015-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         6.890.253 part-00016-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.270.388 part-00017-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         6.509.435 part-00018-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.433.560 part-00019-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         6.542.531 part-00020-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         6.869.486 part-00021-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         6.643.528 part-00022-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.085.764 part-00023-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.042.451 part-00024-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         6.907.531 part-00025-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         6.818.200 part-00026-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.380.766 part-00027-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.399.161 part-00028-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.218.322 part-00029-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         6.968.725 part-00030-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.358.504 part-00031-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.210.926 part-00032-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         6.976.191 part-00033-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.159.537 part-00034-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         7.445.832 part-00035-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:05         6.874.083 part-00036-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         7.118.341 part-00037-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         6.945.828 part-00038-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         6.900.738 part-00039-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         6.964.029 part-00040-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         7.189.102 part-00041-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         7.109.753 part-00042-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         6.769.117 part-00043-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         6.790.720 part-00044-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         7.374.246 part-00045-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         7.948.280 part-00046-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         7.618.573 part-00047-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         7.251.530 part-00048-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         7.034.861 part-00049-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         7.067.172 part-00050-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         7.282.336 part-00051-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         7.142.246 part-00052-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         6.767.407 part-00053-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06        10.147.147 part-00054-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06        10.632.854 part-00055-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         6.512.458 part-00056-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         6.865.452 part-00057-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         7.032.853 part-00058-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         7.619.551 part-00059-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         6.856.623 part-00060-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         6.969.639 part-00061-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         6.905.448 part-00062-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         7.304.494 part-00063-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06        10.074.858 part-00064-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         7.184.512 part-00065-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         6.979.898 part-00066-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         6.756.139 part-00067-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:06         6.707.003 part-00068-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07        10.354.742 part-00069-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         6.830.231 part-00070-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         7.517.427 part-00071-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         7.235.958 part-00072-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         6.526.067 part-00073-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         7.155.966 part-00074-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07        10.174.115 part-00075-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         6.770.593 part-00076-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07        10.256.273 part-00077-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         6.910.558 part-00078-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         7.316.038 part-00079-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         6.894.498 part-00080-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         7.237.471 part-00081-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         7.091.664 part-00082-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         7.310.596 part-00083-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         6.857.878 part-00084-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         7.086.365 part-00085-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         6.717.251 part-00086-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         6.422.835 part-00087-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         7.162.535 part-00088-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         7.357.414 part-00089-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         7.101.015 part-00090-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         7.496.840 part-00091-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         6.954.955 part-00092-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         6.940.526 part-00093-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         7.369.122 part-00094-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         7.638.767 part-00095-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07         3.334.718 part-00096-9dc6ff70-2007-43ca-95d2-df9002698631-c000.snappy.parquet
+01/12/2023  18:07                 0 _SUCCESS
+             196 File(s)    710.746.934 bytes
+               2 Dir(s)  732.931.137.536 bytes free
+
+C:\temp>
+
+--------------------------------------------------------------
+--- number of records in result : 267.024.650 records
+--------------------------------------------------------------
