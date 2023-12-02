@@ -47,7 +47,7 @@ public class AccountGroupBy {
     void start() {
         SparkConf conf = new SparkConf()
                 .setAppName("accountGroupBy")
-                .setMaster("local[4]")
+                .setMaster("local[8]")
                 .set("spark.executor.memory", "8g")
                 .set("spark.driver.memory", "4g");
 
@@ -67,7 +67,7 @@ public class AccountGroupBy {
         System.out.println("accountGroupBy ");
         System.out.println("----------------------------------------------------------");
         d0 = new Date();
-        Dataset<Row> result = this.accountGroupBy(extractedData);
+        Dataset<Row> result = this.accountGroupBy(extractedData,"c:/temp/deltaaccresult");
         d1 = new Date();
         result.show(100, false);
 
@@ -77,10 +77,10 @@ public class AccountGroupBy {
         System.out.println("accountGroupBy = " + t1+ ", generated records "+ result.count());
         System.out.println("----------------------------------------------------------");
 
-        this.countResult(spark,"c:/temp/accresult");
+        //this.countResult(spark,"c:/temp/accresult");
 
         wait(600);
-        */
+
     }
 
     //--------------------------------------------------------------
@@ -132,7 +132,7 @@ public class AccountGroupBy {
 
     //--------------------------------------------------------------
 
-    Dataset<Row> accountGroupBy(Dataset<Row> dataset) {
+    Dataset<Row> accountGroupBy(Dataset<Row> dataset,String filename) {
 
         System.out.println("----------------------------------------------------------");
         System.out.println("accountGroupBy starting " + new java.util.Date());
@@ -146,7 +146,7 @@ public class AccountGroupBy {
                 .withColumnRenamed("sum(amount)","total")
                 //.where(col("hour").isNotNull())
                 .sort("fromAcc", "hour", "year", "month", "day");
-        result.write().option("header", true).mode("overwrite").format("parquet").save("c:/temp/accresult");
+        result.write().option("header", true).mode("overwrite").format("delta").save(filename);
 
 
         System.out.println("----------------------------------------------------------");
