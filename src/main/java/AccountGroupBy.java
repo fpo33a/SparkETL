@@ -18,6 +18,7 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.SparkConf;
+
 import java.util.Date;
 import static org.apache.spark.sql.functions.col;
 
@@ -47,8 +48,8 @@ public class AccountGroupBy {
     void start() {
         SparkConf conf = new SparkConf()
                 .setAppName("accountGroupBy")
-                .setMaster("local[8]")
-                .set("spark.executor.memory", "8g")
+                .setMaster("local[4]")
+                .set("spark.executor.memory", "10g")
                 .set("spark.driver.memory", "4g");
 
         SparkSession spark = SparkSession.builder().config(conf)
