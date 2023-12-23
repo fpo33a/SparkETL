@@ -19,8 +19,8 @@ public class CustomParser implements ParserInterface {
     @Override
     public LogicalPlan parsePlan(String sqlText) throws ParseException {
         System.out.println("   -----> StrictParser parsePlan "+sqlText);
-        return parserInterface.parsePlan(sqlText);
-      //  return null;
+        LogicalPlan lp = parserInterface.parsePlan(sqlText);
+        return lp;
     }
 
     @Override
