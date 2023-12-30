@@ -54,7 +54,7 @@ public class CustomResolutionTest {
         //Dataset<Row> test = spark.sql("select * from range(10)");
         //Dataset<Row> test = this.extract(spark, "C:\\temp\\billion-accounts.csv");
         //Dataset<Row> test = this.loadParquet(spark);
-        Dataset<Row> test = this.loadParquet(spark).select("fromAcc","toAcc","Amount");
+        Dataset<Row> test = this.loadParquet(spark).select("fromAcc","toAcc","Amount").where("Amount < 100");   // add where clause to check pushdown predicate
 
         test.explain(true);
         test.show();

@@ -1,0 +1,149 @@
+// output of CustomResolutionTest.java
+// the "authorizationException" triggered by 'amount' column has been commented out for this test
+// the query done has a where clause to double check the pushdown predicate @ parquet level
+
+C:\jdk8\bin\java.exe -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:50081,suspend=y,server=n -javaagent:C:\Users\frank\AppData\Local\JetBrains\IdeaIC2021.3\captureAgent\debugger-agent.jar -Dfile.encoding=UTF-8 -classpath "C:\jdk8\lib\ant-javafx.jar;C:\jdk8\lib\dt.jar;C:\jdk8\lib\javafx-mx.jar;C:\jdk8\lib\jconsole.jar;C:\jdk8\lib\packager.jar;C:\jdk8\lib\sa-jdi.jar;C:\jdk8\lib\tools.jar;C:\frank\SparkETL\target\classes;C:\Users\frank\.m2\repository\org\apache\spark\spark-core_2.12\3.2.0\spark-core_2.12-3.2.0.jar;C:\Users\frank\.m2\repository\org\apache\avro\avro\1.10.2\avro-1.10.2.jar;C:\Users\frank\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.12.2\jackson-core-2.12.2.jar;C:\Users\frank\.m2\repository\org\apache\commons\commons-compress\1.20\commons-compress-1.20.jar;C:\Users\frank\.m2\repository\org\apache\avro\avro-mapred\1.10.2\avro-mapred-1.10.2.jar;C:\Users\frank\.m2\repository\org\apache\avro\avro-ipc\1.10.2\avro-ipc-1.10.2.jar;C:\Users\frank\.m2\repository\org\tukaani\xz\1.8\xz-1.8.jar;C:\Users\frank\.m2\repository\com\twitter\chill_2.12\0.10.0\chill_2.12-0.10.0.jar;C:\Users\frank\.m2\repository\com\esotericsoftware\kryo-shaded\4.0.2\kryo-shaded-4.0.2.jar;C:\Users\frank\.m2\repository\com\esotericsoftware\minlog\1.3.0\minlog-1.3.0.jar;C:\Users\frank\.m2\repository\org\objenesis\objenesis\2.5.1\objenesis-2.5.1.jar;C:\Users\frank\.m2\repository\com\twitter\chill-java\0.10.0\chill-java-0.10.0.jar;C:\Users\frank\.m2\repository\org\apache\xbean\xbean-asm9-shaded\4.20\xbean-asm9-shaded-4.20.jar;C:\Users\frank\.m2\repository\org\apache\hadoop\hadoop-client-api\3.3.1\hadoop-client-api-3.3.1.jar;C:\Users\frank\.m2\repository\org\apache\hadoop\hadoop-client-runtime\3.3.1\hadoop-client-runtime-3.3.1.jar;C:\Users\frank\.m2\repository\org\apache\htrace\htrace-core4\4.1.0-incubating\htrace-core4-4.1.0-incubating.jar;C:\Users\frank\.m2\repository\commons-logging\commons-logging\1.1.3\commons-logging-1.1.3.jar;C:\Users\frank\.m2\repository\org\apache\spark\spark-launcher_2.12\3.2.0\spark-launcher_2.12-3.2.0.jar;C:\Users\frank\.m2\repository\org\apache\spark\spark-kvstore_2.12\3.2.0\spark-kvstore_2.12-3.2.0.jar;C:\Users\frank\.m2\repository\org\fusesource\leveldbjni\leveldbjni-all\1.8\leveldbjni-all-1.8.jar;C:\Users\frank\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.12.3\jackson-annotations-2.12.3.jar;C:\Users\frank\.m2\repository\org\apache\spark\spark-network-common_2.12\3.2.0\spark-network-common_2.12-3.2.0.jar;C:\Users\frank\.m2\repository\com\google\crypto\tink\tink\1.6.0\tink-1.6.0.jar;C:\Users\frank\.m2\repository\com\google\code\gson\gson\2.8.6\gson-2.8.6.jar;C:\Users\frank\.m2\repository\org\apache\spark\spark-network-shuffle_2.12\3.2.0\spark-network-shuffle_2.12-3.2.0.jar;C:\Users\frank\.m2\repository\org\apache\spark\spark-unsafe_2.12\3.2.0\spark-unsafe_2.12-3.2.0.jar;C:\Users\frank\.m2\repository\javax\activation\activation\1.1.1\activation-1.1.1.jar;C:\Users\frank\.m2\repository\org\apache\curator\curator-recipes\2.13.0\curator-recipes-2.13.0.jar;C:\Users\frank\.m2\repository\org\apache\curator\curator-framework\2.13.0\curator-framework-2.13.0.jar;C:\Users\frank\.m2\repository\org\apache\curator\curator-client\2.13.0\curator-client-2.13.0.jar;C:\Users\frank\.m2\repository\com\google\guava\guava\16.0.1\guava-16.0.1.jar;C:\Users\frank\.m2\repository\org\apache\zookeeper\zookeeper\3.6.2\zookeeper-3.6.2.jar;C:\Users\frank\.m2\repository\commons-lang\commons-lang\2.6\commons-lang-2.6.jar;C:\Users\frank\.m2\repository\org\apache\zookeeper\zookeeper-jute\3.6.2\zookeeper-jute-3.6.2.jar;C:\Users\frank\.m2\repository\org\apache\yetus\audience-annotations\0.5.0\audience-annotations-0.5.0.jar;C:\Users\frank\.m2\repository\jakarta\servlet\jakarta.servlet-api\4.0.3\jakarta.servlet-api-4.0.3.jar;C:\Users\frank\.m2\repository\commons-codec\commons-codec\1.15\commons-codec-1.15.jar;C:\Users\frank\.m2\repository\org\apache\commons\commons-lang3\3.12.0\commons-lang3-3.12.0.jar;C:\Users\frank\.m2\repository\org\apache\commons\commons-math3\3.4.1\commons-math3-3.4.1.jar;C:\Users\frank\.m2\repository\org\apache\commons\commons-text\1.6\commons-text-1.6.jar;C:\Users\frank\.m2\repository\commons-io\commons-io\2.8.0\commons-io-2.8.0.jar;C:\Users\frank\.m2\repository\commons-collections\commons-collections\3.2.2\commons-collections-3.2.2.jar;C:\Users\frank\.m2\repository\com\google\code\findbugs\jsr305\3.0.0\jsr305-3.0.0.jar;C:\Users\frank\.m2\repository\org\slf4j\slf4j-api\1.7.30\slf4j-api-1.7.30.jar;C:\Users\frank\.m2\repository\org\slf4j\jul-to-slf4j\1.7.30\jul-to-slf4j-1.7.30.jar;C:\Users\frank\.m2\repository\org\slf4j\jcl-over-slf4j\1.7.30\jcl-over-slf4j-1.7.30.jar;C:\Users\frank\.m2\repository\log4j\log4j\1.2.17\log4j-1.2.17.jar;C:\Users\frank\.m2\repository\org\slf4j\slf4j-log4j12\1.7.30\slf4j-log4j12-1.7.30.jar;C:\Users\frank\.m2\repository\com\ning\compress-lzf\1.0.3\compress-lzf-1.0.3.jar;C:\Users\frank\.m2\repository\org\xerial\snappy\snappy-java\1.1.8.4\snappy-java-1.1.8.4.jar;C:\Users\frank\.m2\repository\org\lz4\lz4-java\1.7.1\lz4-java-1.7.1.jar;C:\Users\frank\.m2\repository\com\github\luben\zstd-jni\1.5.0-4\zstd-jni-1.5.0-4.jar;C:\Users\frank\.m2\repository\org\roaringbitmap\RoaringBitmap\0.9.0\RoaringBitmap-0.9.0.jar;C:\Users\frank\.m2\repository\org\roaringbitmap\shims\0.9.0\shims-0.9.0.jar;C:\Users\frank\.m2\repository\commons-net\commons-net\3.1\commons-net-3.1.jar;C:\Users\frank\.m2\repository\org\scala-lang\modules\scala-xml_2.12\1.2.0\scala-xml_2.12-1.2.0.jar;C:\Users\frank\.m2\repository\org\scala-lang\scala-library\2.12.15\scala-library-2.12.15.jar;C:\Users\frank\.m2\repository\org\scala-lang\scala-reflect\2.12.15\scala-reflect-2.12.15.jar;C:\Users\frank\.m2\repository\org\json4s\json4s-jackson_2.12\3.7.0-M11\json4s-jackson_2.12-3.7.0-M11.jar;C:\Users\frank\.m2\repository\org\json4s\json4s-core_2.12\3.7.0-M11\json4s-core_2.12-3.7.0-M11.jar;C:\Users\frank\.m2\repository\org\json4s\json4s-ast_2.12\3.7.0-M11\json4s-ast_2.12-3.7.0-M11.jar;C:\Users\frank\.m2\repository\org\json4s\json4s-scalap_2.12\3.7.0-M11\json4s-scalap_2.12-3.7.0-M11.jar;C:\Users\frank\.m2\repository\org\glassfish\jersey\core\jersey-client\2.34\jersey-client-2.34.jar;C:\Users\frank\.m2\repository\jakarta\ws\rs\jakarta.ws.rs-api\2.1.6\jakarta.ws.rs-api-2.1.6.jar;C:\Users\frank\.m2\repository\org\glassfish\hk2\external\jakarta.inject\2.6.1\jakarta.inject-2.6.1.jar;C:\Users\frank\.m2\repository\org\glassfish\jersey\core\jersey-common\2.34\jersey-common-2.34.jar;C:\Users\frank\.m2\repository\jakarta\annotation\jakarta.annotation-api\1.3.5\jakarta.annotation-api-1.3.5.jar;C:\Users\frank\.m2\repository\org\glassfish\hk2\osgi-resource-locator\1.0.3\osgi-resource-locator-1.0.3.jar;C:\Users\frank\.m2\repository\org\glassfish\jersey\core\jersey-server\2.34\jersey-server-2.34.jar;C:\Users\frank\.m2\repository\jakarta\validation\jakarta.validation-api\2.0.2\jakarta.validation-api-2.0.2.jar;C:\Users\frank\.m2\repository\org\glassfish\jersey\containers\jersey-container-servlet\2.34\jersey-container-servlet-2.34.jar;C:\Users\frank\.m2\repository\org\glassfish\jersey\containers\jersey-container-servlet-core\2.34\jersey-container-servlet-core-2.34.jar;C:\Users\frank\.m2\repository\org\glassfish\jersey\inject\jersey-hk2\2.34\jersey-hk2-2.34.jar;C:\Users\frank\.m2\repository\org\glassfish\hk2\hk2-locator\2.6.1\hk2-locator-2.6.1.jar;C:\Users\frank\.m2\repository\org\glassfish\hk2\external\aopalliance-repackaged\2.6.1\aopalliance-repackaged-2.6.1.jar;C:\Users\frank\.m2\repository\org\glassfish\hk2\hk2-api\2.6.1\hk2-api-2.6.1.jar;C:\Users\frank\.m2\repository\org\glassfish\hk2\hk2-utils\2.6.1\hk2-utils-2.6.1.jar;C:\Users\frank\.m2\repository\org\javassist\javassist\3.25.0-GA\javassist-3.25.0-GA.jar;C:\Users\frank\.m2\repository\io\netty\netty-all\4.1.68.Final\netty-all-4.1.68.Final.jar;C:\Users\frank\.m2\repository\com\clearspring\analytics\stream\2.9.6\stream-2.9.6.jar;C:\Users\frank\.m2\repository\io\dropwizard\metrics\metrics-core\4.2.0\metrics-core-4.2.0.jar;C:\Users\frank\.m2\repository\io\dropwizard\metrics\metrics-jvm\4.2.0\metrics-jvm-4.2.0.jar;C:\Users\frank\.m2\repository\io\dropwizard\metrics\metrics-json\4.2.0\metrics-json-4.2.0.jar;C:\Users\frank\.m2\repository\io\dropwizard\metrics\metrics-graphite\4.2.0\metrics-graphite-4.2.0.jar;C:\Users\frank\.m2\repository\io\dropwizard\metrics\metrics-jmx\4.2.0\metrics-jmx-4.2.0.jar;C:\Users\frank\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.12.3\jackson-databind-2.12.3.jar;C:\Users\frank\.m2\repository\com\fasterxml\jackson\module\jackson-module-scala_2.12\2.12.3\jackson-module-scala_2.12-2.12.3.jar;C:\Users\frank\.m2\repository\com\thoughtworks\paranamer\paranamer\2.8\paranamer-2.8.jar;C:\Users\frank\.m2\repository\org\apache\ivy\ivy\2.5.0\ivy-2.5.0.jar;C:\Users\frank\.m2\repository\oro\oro\2.0.8\oro-2.0.8.jar;C:\Users\frank\.m2\repository\net\razorvine\pyrolite\4.30\pyrolite-4.30.jar;C:\Users\frank\.m2\repository\net\sf\py4j\py4j\0.10.9.2\py4j-0.10.9.2.jar;C:\Users\frank\.m2\repository\org\apache\spark\spark-tags_2.12\3.2.0\spark-tags_2.12-3.2.0.jar;C:\Users\frank\.m2\repository\org\apache\commons\commons-crypto\1.1.0\commons-crypto-1.1.0.jar;C:\Users\frank\.m2\repository\org\spark-project\spark\unused\1.0.0\unused-1.0.0.jar;C:\Users\frank\.m2\repository\org\apache\spark\spark-streaming_2.12\3.2.0\spark-streaming_2.12-3.2.0.jar;C:\Users\frank\.m2\repository\org\apache\spark\spark-sql_2.12\3.2.0\spark-sql_2.12-3.2.0.jar;C:\Users\frank\.m2\repository\org\rocksdb\rocksdbjni\6.20.3\rocksdbjni-6.20.3.jar;C:\Users\frank\.m2\repository\com\univocity\univocity-parsers\2.9.1\univocity-parsers-2.9.1.jar;C:\Users\frank\.m2\repository\org\apache\spark\spark-sketch_2.12\3.2.0\spark-sketch_2.12-3.2.0.jar;C:\Users\frank\.m2\repository\org\apache\spark\spark-catalyst_2.12\3.2.0\spark-catalyst_2.12-3.2.0.jar;C:\Users\frank\.m2\repository\org\scala-lang\modules\scala-parser-combinators_2.12\1.1.2\scala-parser-combinators_2.12-1.1.2.jar;C:\Users\frank\.m2\repository\org\codehaus\janino\janino\3.0.16\janino-3.0.16.jar;C:\Users\frank\.m2\repository\org\codehaus\janino\commons-compiler\3.0.16\commons-compiler-3.0.16.jar;C:\Users\frank\.m2\repository\javax\xml\bind\jaxb-api\2.2.11\jaxb-api-2.2.11.jar;C:\Users\frank\.m2\repository\org\apache\arrow\arrow-vector\2.0.0\arrow-vector-2.0.0.jar;C:\Users\frank\.m2\repository\org\apache\arrow\arrow-format\2.0.0\arrow-format-2.0.0.jar;C:\Users\frank\.m2\repository\org\apache\arrow\arrow-memory-core\2.0.0\arrow-memory-core-2.0.0.jar;C:\Users\frank\.m2\repository\com\google\flatbuffers\flatbuffers-java\1.9.0\flatbuffers-java-1.9.0.jar;C:\Users\frank\.m2\repository\org\apache\arrow\arrow-memory-netty\2.0.0\arrow-memory-netty-2.0.0.jar;C:\Users\frank\.m2\repository\org\apache\orc\orc-core\1.6.11\orc-core-1.6.11.jar;C:\Users\frank\.m2\repository\org\apache\orc\orc-shims\1.6.11\orc-shims-1.6.11.jar;C:\Users\frank\.m2\repository\com\google\protobuf\protobuf-java\2.5.0\protobuf-java-2.5.0.jar;C:\Users\frank\.m2\repository\io\airlift\aircompressor\0.21\aircompressor-0.21.jar;C:\Users\frank\.m2\repository\org\jetbrains\annotations\17.0.0\annotations-17.0.0.jar;C:\Users\frank\.m2\repository\org\threeten\threeten-extra\1.5.0\threeten-extra-1.5.0.jar;C:\Users\frank\.m2\repository\org\apache\orc\orc-mapreduce\1.6.11\orc-mapreduce-1.6.11.jar;C:\Users\frank\.m2\repository\org\apache\hive\hive-storage-api\2.7.2\hive-storage-api-2.7.2.jar;C:\Users\frank\.m2\repository\org\apache\parquet\parquet-column\1.12.1\parquet-column-1.12.1.jar;C:\Users\frank\.m2\repository\org\apache\parquet\parquet-common\1.12.1\parquet-common-1.12.1.jar;C:\Users\frank\.m2\repository\org\apache\parquet\parquet-encoding\1.12.1\parquet-encoding-1.12.1.jar;C:\Users\frank\.m2\repository\org\apache\parquet\parquet-hadoop\1.12.1\parquet-hadoop-1.12.1.jar;C:\Users\frank\.m2\repository\org\apache\parquet\parquet-format-structures\1.12.1\parquet-format-structures-1.12.1.jar;C:\Users\frank\.m2\repository\org\apache\parquet\parquet-jackson\1.12.1\parquet-jackson-1.12.1.jar;C:\Users\frank\.m2\repository\io\delta\delta-core_2.12\2.0.2\delta-core_2.12-2.0.2.jar;C:\Users\frank\.m2\repository\io\delta\delta-storage\2.0.2\delta-storage-2.0.2.jar;C:\Users\frank\.m2\repository\org\antlr\antlr4-runtime\4.8\antlr4-runtime-4.8.jar;C:\Users\frank\.m2\repository\org\codehaus\jackson\jackson-core-asl\1.9.13\jackson-core-asl-1.9.13.jar;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2021.3\lib\idea_rt.jar" CustomResolutionTest
+Connected to the target VM, address: '127.0.0.1:50081', transport: 'socket'
+   -----> CustomResolutionRuleInjector.apply
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+23/12/30 13:55:16 INFO SparkContext: Running Spark version 3.2.0
+23/12/30 13:55:17 INFO ResourceUtils: ==============================================================
+23/12/30 13:55:17 INFO ResourceUtils: No custom resources configured for spark.driver.
+23/12/30 13:55:17 INFO ResourceUtils: ==============================================================
+23/12/30 13:55:17 INFO SparkContext: Submitted application: CustomResolutionTest
+23/12/30 13:55:17 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+23/12/30 13:55:17 INFO ResourceProfile: Limiting resource is cpu
+23/12/30 13:55:17 INFO ResourceProfileManager: Added ResourceProfile id: 0
+23/12/30 13:55:18 INFO SecurityManager: Changing view acls to: frank
+23/12/30 13:55:18 INFO SecurityManager: Changing modify acls to: frank
+23/12/30 13:55:18 INFO SecurityManager: Changing view acls groups to: 
+23/12/30 13:55:18 INFO SecurityManager: Changing modify acls groups to: 
+23/12/30 13:55:18 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(frank); groups with view permissions: Set(); users  with modify permissions: Set(frank); groups with modify permissions: Set()
+23/12/30 13:55:20 INFO Utils: Successfully started service 'sparkDriver' on port 50114.
+23/12/30 13:55:20 INFO SparkEnv: Registering MapOutputTracker
+23/12/30 13:55:20 INFO SparkEnv: Registering BlockManagerMaster
+23/12/30 13:55:20 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+23/12/30 13:55:20 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+23/12/30 13:55:20 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+23/12/30 13:55:20 INFO DiskBlockManager: Created local directory at C:\Users\frank\AppData\Local\Temp\blockmgr-a1b64a59-1731-4e0b-aa37-75bff98d0891
+23/12/30 13:55:20 INFO MemoryStore: MemoryStore started with capacity 1713.6 MiB
+23/12/30 13:55:20 INFO SparkEnv: Registering OutputCommitCoordinator
+23/12/30 13:55:21 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+23/12/30 13:55:21 INFO SparkUI: Bound SparkUI to 0.0.0.0, and started at http://LAPTOP-7FO1G6NN:4040
+23/12/30 13:55:21 INFO Executor: Starting executor ID driver on host LAPTOP-7FO1G6NN
+23/12/30 13:55:21 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 50145.
+23/12/30 13:55:21 INFO NettyBlockTransferService: Server created on LAPTOP-7FO1G6NN:50145
+23/12/30 13:55:21 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+23/12/30 13:55:21 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, LAPTOP-7FO1G6NN, 50145, None)
+23/12/30 13:55:21 INFO BlockManagerMasterEndpoint: Registering block manager LAPTOP-7FO1G6NN:50145 with 1713.6 MiB RAM, BlockManagerId(driver, LAPTOP-7FO1G6NN, 50145, None)
+23/12/30 13:55:21 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, LAPTOP-7FO1G6NN, 50145, None)
+23/12/30 13:55:21 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, LAPTOP-7FO1G6NN, 50145, None)
+23/12/30 13:55:22 INFO SharedState: Setting hive.metastore.warehouse.dir ('null') to the value of spark.sql.warehouse.dir.
+23/12/30 13:55:22 INFO SharedState: Warehouse path is 'file:/C:/frank/SparkETL/spark-warehouse'.
+23/12/30 13:55:24 INFO InMemoryFileIndex: It took 206 ms to list leaf files for 1 paths.
+23/12/30 13:55:25 INFO SparkContext: Starting job: load at CustomResolutionTest.java:70
+23/12/30 13:55:25 INFO DAGScheduler: Got job 0 (load at CustomResolutionTest.java:70) with 1 output partitions
+23/12/30 13:55:25 INFO DAGScheduler: Final stage: ResultStage 0 (load at CustomResolutionTest.java:70)
+23/12/30 13:55:25 INFO DAGScheduler: Parents of final stage: List()
+23/12/30 13:55:25 INFO DAGScheduler: Missing parents: List()
+23/12/30 13:55:25 INFO DAGScheduler: Submitting ResultStage 0 (MapPartitionsRDD[1] at load at CustomResolutionTest.java:70), which has no missing parents
+23/12/30 13:55:25 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 99.7 KiB, free 1713.5 MiB)
+23/12/30 13:55:25 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 35.4 KiB, free 1713.5 MiB)
+23/12/30 13:55:25 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on LAPTOP-7FO1G6NN:50145 (size: 35.4 KiB, free: 1713.6 MiB)
+23/12/30 13:55:25 INFO SparkContext: Created broadcast 0 from broadcast at DAGScheduler.scala:1427
+23/12/30 13:55:26 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 0 (MapPartitionsRDD[1] at load at CustomResolutionTest.java:70) (first 15 tasks are for partitions Vector(0))
+23/12/30 13:55:26 INFO TaskSchedulerImpl: Adding task set 0.0 with 1 tasks resource profile 0
+23/12/30 13:55:26 INFO TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0) (LAPTOP-7FO1G6NN, executor driver, partition 0, PROCESS_LOCAL, 4645 bytes) taskResourceAssignments Map()
+23/12/30 13:55:26 INFO Executor: Running task 0.0 in stage 0.0 (TID 0)
+23/12/30 13:55:27 INFO Executor: Finished task 0.0 in stage 0.0 (TID 0). 2040 bytes result sent to driver
+23/12/30 13:55:27 INFO TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 987 ms on LAPTOP-7FO1G6NN (executor driver) (1/1)
+23/12/30 13:55:27 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+23/12/30 13:55:27 INFO DAGScheduler: ResultStage 0 (load at CustomResolutionTest.java:70) finished in 1.281 s
+23/12/30 13:55:27 INFO DAGScheduler: Job 0 is finished. Cancelling potential speculative or zombie tasks for this job
+23/12/30 13:55:27 INFO TaskSchedulerImpl: Killing all running tasks in stage 0: Stage finished
+23/12/30 13:55:27 INFO DAGScheduler: Job 0 finished: load at CustomResolutionTest.java:70, took 1.373237 s
+23/12/30 13:55:27 INFO BlockManagerInfo: Removed broadcast_0_piece0 on LAPTOP-7FO1G6NN:50145 in memory (size: 35.4 KiB, free: 1713.6 MiB)
+   ---> CustomResolutionRule constructor
+   ***** hadoopFsRelation path  -----> List(file:/c:/temp/billion-parquet)
+   ***** hadoopFsRelation file [0]  -----> file:///c:/temp/billion-parquet/part-00000-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+   ***** hadoopFsRelation file [1]  -----> file:///c:/temp/billion-parquet/part-00001-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+   ***** hadoopFsRelation file [2]  -----> file:///c:/temp/billion-parquet/part-00002-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+   ***** hadoopFsRelation file [3]  -----> file:///c:/temp/billion-parquet/part-00003-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+   ***** hadoopFsRelation file [4]  -----> file:///c:/temp/billion-parquet/part-00004-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+   ***** hadoopFsRelation file [5]  -----> file:///c:/temp/billion-parquet/part-00005-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+   ***** hadoopFsRelation file [6]  -----> file:///c:/temp/billion-parquet/part-00006-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+   ***** hadoopFsRelation file [7]  -----> file:///c:/temp/billion-parquet/part-00007-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+   ***** hadoopFsRelation file [8]  -----> file:///c:/temp/billion-parquet/part-00008-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+   ***** hadoopFsRelation file [9]  -----> file:///c:/temp/billion-parquet/part-00009-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+   ***** hadoopFsRelation file [10]  -----> file:///c:/temp/billion-parquet/part-00010-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+   ***** hadoopFsRelation file [11]  -----> file:///c:/temp/billion-parquet/part-00011-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+   ***** hadoopFsRelation file [12]  -----> file:///c:/temp/billion-parquet/part-00012-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+   ***** hadoopFsRelation file [13]  -----> file:///c:/temp/billion-parquet/part-00013-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+   ***** hadoopFsRelation file [14]  -----> file:///c:/temp/billion-parquet/part-00014-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+   ***** hadoopFsRelation file [15]  -----> file:///c:/temp/billion-parquet/part-00015-98576510-bdb9-4976-adfc-4289c30fa420-c000.snappy.parquet
+   ***** hadoopFsRelation schema field [0] -----> fromAcc : StringType
+   ***** hadoopFsRelation schema field [1] -----> toAcc : StringType
+   ***** hadoopFsRelation schema field [2] -----> Amount : IntegerType
+   ***** hadoopFsRelation schema field [3] -----> year : IntegerType
+   ***** hadoopFsRelation schema field [4] -----> month : IntegerType
+   ***** hadoopFsRelation schema field [5] -----> day : IntegerType
+   ***** hadoopFsRelation schema field [6] -----> hour : IntegerType
+   ***** hadoopFsRelation schema field [7] -----> min : IntegerType
+   ***** hadoopFsRelation schema field [8] -----> communication : StringType
+Schema:
+root
+ |-- fromAcc: string (nullable = true)
+ |-- toAcc: string (nullable = true)
+ |-- Amount: integer (nullable = true)
+ |-- year: integer (nullable = true)
+ |-- month: integer (nullable = true)
+ |-- day: integer (nullable = true)
+ |-- hour: integer (nullable = true)
+ |-- min: integer (nullable = true)
+ |-- communication: string (nullable = true)
+
+   ***** project -----> Project [fromAcc#0, toAcc#1, Amount#2]
++- Relation [fromAcc#0,toAcc#1,Amount#2,year#3,month#4,day#5,hour#6,min#7,communication#8] parquet
+
+   **** project element ----> : fromAcc
+   **** project element ----> : toAcc
+   **** project element ----> : Amount
+   ***** project -----> Project [fromAcc#0, toAcc#1, Amount#2]
++- Relation [fromAcc#0,toAcc#1,Amount#2,year#3,month#4,day#5,hour#6,min#7,communication#8] parquet
+
+   **** project element ----> : fromAcc
+   **** project element ----> : toAcc
+   **** project element ----> : Amount
+   ***** filter -----> Filter (Amount#2 < 100)
++- Project [fromAcc#0, toAcc#1, Amount#2]
+   +- Relation [fromAcc#0,toAcc#1,Amount#2,year#3,month#4,day#5,hour#6,min#7,communication#8] parquet
+
+   ***** filter -----> Filter (Amount#2 < 100)
++- Project [fromAcc#0, toAcc#1, Amount#2]
+   +- Relation [fromAcc#0,toAcc#1,Amount#2,year#3,month#4,day#5,hour#6,min#7,communication#8] parquet
+
+23/12/30 13:55:30 INFO FileSourceStrategy: Pushed Filters: IsNotNull(Amount),LessThan(Amount,100)
+23/12/30 13:55:30 INFO FileSourceStrategy: Post-Scan Filters: isnotnull(Amount#2),(Amount#2 < 100)
+23/12/30 13:55:30 INFO FileSourceStrategy: Output Data Schema: struct<fromAcc: string, toAcc: string, Amount: int ... 1 more fields>
+== Parsed Logical Plan ==
+'Filter ('Amount < 100)
++- Project [fromAcc#0, toAcc#1, Amount#2]
+   +- Relation [fromAcc#0,toAcc#1,Amount#2,year#3,month#4,day#5,hour#6,min#7,communication#8] parquet
+
+== Analyzed Logical Plan ==
+fromAcc: string, toAcc: string, Amount: int
+Filter (Amount#2 < 100)
++- Project [fromAcc#0, toAcc#1, Amount#2]
+   +- Relation [fromAcc#0,toAcc#1,Amount#2,year#3,month#4,day#5,hour#6,min#7,communication#8] parquet
+
+== Optimized Logical Plan ==
+Project [fromAcc#0, toAcc#1, Amount#2]
++- Filter (isnotnull(Amount#2) AND (Amount#2 < 100))
+   +- Relation [fromAcc#0,toAcc#1,Amount#2,year#3,month#4,day#5,hour#6,min#7,communication#8] parquet
+
+== Physical Plan ==
+*(1) Filter (isnotnull(Amount#2) AND (Amount#2 < 100))
++- *(1) ColumnarToRow
+   +- FileScan parquet [fromAcc#0,toAcc#1,Amount#2] Batched: true, DataFilters: [isnotnull(Amount#2), (Amount#2 < 100)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/c:/temp/billion-parquet], PartitionFilters: [], PushedFilters: [IsNotNull(Amount), LessThan(Amount,100)], ReadSchema: struct<fromAcc:string,toAcc:string,Amount:int>
+
+[...]

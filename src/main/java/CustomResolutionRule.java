@@ -4,6 +4,7 @@ import org.apache.spark.sql.catalyst.plans.logical.Filter;
 import org.apache.spark.sql.catalyst.plans.logical.LogicalPlan;
 import org.apache.spark.sql.catalyst.plans.logical.Project;
 import org.apache.spark.sql.catalyst.rules.Rule;
+import org.apache.spark.sql.catalyst.trees.TreeNode;
 import org.apache.spark.sql.execution.datasources.HadoopFsRelation;
 import org.apache.spark.sql.execution.datasources.LogicalRelation;
 import org.apache.spark.sql.types.StructField;
@@ -51,9 +52,13 @@ public class CustomResolutionRule extends Rule<LogicalPlan> {
             while (iterator.hasNext()) {
                 NamedExpression seq = iterator.next();
                 System.out.println("   **** project element ----> : "+seq.name());
+                /* if enabled it stops the program if a column "amount" is used in the query ...
+                   this to emulate some authorization mechanism
                 if (seq.name().compareToIgnoreCase("amount") == 0) {
                     throw new AuthorizationException("You are not authorized to read this column");
                 }
+
+                 */
             }
         }
         else if (plan instanceof Filter) {
