@@ -4,7 +4,6 @@ import org.apache.spark.sql.catalyst.plans.logical.Filter;
 import org.apache.spark.sql.catalyst.plans.logical.LogicalPlan;
 import org.apache.spark.sql.catalyst.plans.logical.Project;
 import org.apache.spark.sql.catalyst.rules.Rule;
-import org.apache.spark.sql.catalyst.trees.TreeNode;
 import org.apache.spark.sql.execution.datasources.HadoopFsRelation;
 import org.apache.spark.sql.execution.datasources.LogicalRelation;
 import org.apache.spark.sql.types.StructField;
@@ -64,6 +63,8 @@ public class CustomResolutionRule extends Rule<LogicalPlan> {
         else if (plan instanceof Filter) {
             Filter f = (Filter) plan;
             System.out.println("   ***** filter -----> " + f.toString());
+            LogicalPlan np = f.transform ( new transformFilter());
+            return np;
         }
         return plan;
     }
